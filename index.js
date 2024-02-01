@@ -4,8 +4,18 @@ let arrDrum = document.querySelectorAll("button.drum");
 for(var i=0; i < arrDrum.length; i++){
     document.querySelectorAll("button.drum")[i].addEventListener("click",function (){
         var text = this.innerText.toLowerCase();
+        addSound(text);
+        addAnimationPressed(text);
+    });
+}
+    addEventListener("keydown",function (event){
+        var key = event.key;
+        addSound(key);
+        addAnimationPressed(key);
+    });
 
-        switch (text) {
+    function addSound(key){
+        switch (key) {
             case "w":
                 var tom1 = new Audio('./sounds/tom-1.mp3');
                 tom1.play();
@@ -37,6 +47,12 @@ for(var i=0; i < arrDrum.length; i++){
             default:
                 break;
         }
-        
-    });
-}
+    }
+
+    function addAnimationPressed(currentKey){
+        var element = document.querySelector(`.${currentKey}`);
+        element.classList.toggle("pressed");
+        setTimeout(function () {
+            element.classList.toggle("pressed");
+        }, 100);
+    }
